@@ -10,20 +10,14 @@ local ShowHideFrame = CreateFrame("Frame")
 ShowHideFrame:Hide()
 
 local frames = {
-	boss = "Chinchilla_BossAnchor",
-	difficulty = "MiniMapInstanceDifficulty",
-	guilddifficulty = "GuildInstanceDifficulty",
 	north = "MinimapNorthTag",
 	map = "MiniMapWorldMapButton",
 	mail = "MiniMapMailFrame",
-	lfg = "QueueStatusMinimapButton",
 	dayNight = "GameTimeFrame",
-	track = "MiniMapTracking",
+	track = "MiniMapTrackingFrame",
 	zoomIn = "MinimapZoomIn",
 	zoomOut = "MinimapZoomOut",
-	vehicleSeats = "VehicleSeatIndicator",
 	clock = "TimeManagerClockButton",
-	garrison = "GarrisonLandingPageMinimapButton",
 }
 
 
@@ -49,7 +43,7 @@ function ShowHide:OnInitialize()
 		if _G[frame] then
 			_G[frame].__origParent = _G[frame]:GetParent():GetName()
 		else
-			print("Chinchilla:", frame, "has changed or no longer exists. Please notify the addon author.")
+			--print("Chinchilla:", frame, "has changed or no longer exists. Please notify the addon author.")
 		end
 	end
 
@@ -71,8 +65,8 @@ function ShowHide:OnInitialize()
 end
 
 function ShowHide:OnEnable()
-	self:RegisterEvent("CALENDAR_ACTION_PENDING", "UpdateCalendar")
-	self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES", "UpdateCalendar")
+	--self:RegisterEvent("CALENDAR_ACTION_PENDING", "UpdateCalendar")
+	--self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES", "UpdateCalendar")
 
 	self:UpdateMouseover()
 	self:Update()

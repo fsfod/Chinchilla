@@ -89,10 +89,10 @@ function Appearance:OnEnable()
 
 	-- Removes the circular "waffle-like" texture that shows when using a non-circular minimap in the blue quest objective area.
 	-- Thank you Funkeh` for the code!
-	Minimap:SetArchBlobRingScalar(0)
-	Minimap:SetArchBlobRingAlpha(0)
-	Minimap:SetQuestBlobRingScalar(0)
-	Minimap:SetQuestBlobRingAlpha(0)
+	--Minimap:SetArchBlobRingScalar(0)
+	--Minimap:SetArchBlobRingAlpha(0)
+	--Minimap:SetQuestBlobRingScalar(0)
+	--Minimap:SetQuestBlobRingAlpha(0)
 end
 
 function Appearance:OnDisable()
@@ -227,7 +227,7 @@ function Appearance:SetScale(value)
 ]]--
 
 	Minimap:SetScale(value)
-	ObjectiveTrackerFrame:GetSize()
+	QuestWatchFrame:GetSize()
 end
 
 --[[

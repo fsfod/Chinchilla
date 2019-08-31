@@ -15,7 +15,7 @@ local buttons = {
 	lfg = QueueStatusMinimapButton,
 	dayNight = GameTimeFrame,
 	clock = TimeManagerClockButton,
-	track = MiniMapTracking,
+	track = MiniMapTrackingFrame,
 	voice = MiniMapVoiceChatFrame,
 	zoomIn = MinimapZoomIn,
 	zoomOut = MinimapZoomOut,
@@ -272,7 +272,7 @@ function MoveButtons:OnEnable()
 	self:Update()
 
 	if not Chinchilla:IsHooked("QueueStatusFrame_Update") then
-		Chinchilla:SecureHook("QueueStatusFrame_Update", PositionLFD)
+		--Chinchilla:SecureHook("QueueStatusFrame_Update", PositionLFD)
 	end
 end
 

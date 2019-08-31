@@ -17,9 +17,7 @@ function Position:OnInitialize()
 			minimap = { "TOPRIGHT", 0, 0 },
 			durability = { "TOPRIGHT", -143, -221 },
 			questWatch = { "TOPRIGHT", 0, -175 },
-			vehicleSeats = { "TOPRIGHT", -50, -250 },
 			ticketStatus = { "TOPRIGHT", -180, 0 },
-			boss = { "TOPRIGHT", 55, -236 },
 		}
 	})
 
@@ -133,11 +131,9 @@ function Position:OnEnable()
 	self:SetMinimapPosition()
 
 	-- in alphabetical order, as they should be
-	self:SetFramePosition('boss')
 	self:SetFramePosition('durability')
 	self:SetFramePosition('questWatch')
 	self:SetFramePosition('ticketStatus')
-	self:SetFramePosition('vehicleSeats')
 
 	self:SetLocked()
 	self:UpdateClamp()
@@ -150,8 +146,7 @@ function Position:OnEnable()
 --	self:SecureHook(Boss1TargetFrame, "SetPoint", "BossFrame_SetPoint")
 	self:SecureHook(DurabilityFrame, "SetPoint", "DurabilityFrame_SetPoint")
 	self:SecureHook(TicketStatusFrame, "SetPoint", "TicketStatusFrame_SetPoint")
-	self:SecureHook(VehicleSeatIndicator, "SetPoint", "VehicleSeatIndicator_SetPoint")
-	self:SecureHook(ObjectiveTrackerFrame, "SetPoint", "WatchFrame_SetPoint")
+	self:SecureHook(QuestWatchFrame, "SetPoint", "WatchFrame_SetPoint")
 
 	-- fuck you Blizzard
 --	_G.MinimapCluster.GetBottom = function()
@@ -169,11 +164,9 @@ function Position:OnDisable()
 	self:ShowFrameMover('worldState', false)
 
 	-- in alphabetical order, as they should be
-	self:SetFramePosition('boss')
 	self:SetFramePosition('durability')
 	self:SetFramePosition('questWatch')
 	self:SetFramePosition('ticketStatus')
-	self:SetFramePosition('vehicleSeats')
 
 	self:SetLocked()
 
@@ -284,7 +277,7 @@ function Position:SetMinimapPosition(point, x, y)
 	end
 
 	lastQuadrant = quadrant
-	ObjectiveTrackerFrame:GetSize()
+	QuestWatchFrame:GetSize()
 end
 
 local shouldntSetPoint = false
@@ -312,10 +305,8 @@ end
 local movers = {}
 local nameToFrame = {
 	minimap = Minimap,
-	boss = Chinchilla_BossAnchor,
 	durability = DurabilityFrame,
-	questWatch = ObjectiveTrackerFrame,
-	vehicleSeats = VehicleSeatIndicator,
+	questWatch = QuestWatchFrame,
 	ticketStatus = TicketStatusFrame,
 }
 
@@ -342,6 +333,7 @@ function Position:SetFramePosition(frame, point, x, y)
 	if point then
 		self.db.profile[frame][1] = point
 	else
+    assert(self.db.profile[frame], frame)
 		point = self.db.profile[frame][1]
 	end
 
@@ -363,7 +355,7 @@ function Position:SetFramePosition(frame, point, x, y)
 	end
 
 	shouldntSetPoint = true
-
+  assert(nameToFrame[frame], frame)
 	nameToFrame[frame]:SetMovable(true)
 	nameToFrame[frame]:SetResizable(true)
 
@@ -396,8 +388,6 @@ end
 local nameToNiceName = {
 	durability = DURABILITY,
 	questWatch = L["Quest tracker"],
-	vehicleSeats = L["Vehicle seats"],
-	boss = L["Boss frames"],
 	ticketStatus = L["Ticket status"],
 }
 
@@ -479,7 +469,7 @@ function Position:UpdateClamp(info, value)
 		end
 	end
 
-	ObjectiveTrackerFrame:GetSize()
+	QuestWatchFrame:GetSize()
 end
 
 

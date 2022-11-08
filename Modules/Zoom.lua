@@ -14,9 +14,9 @@ local function OnMouseWheel(_, delta)
 	if not Zoom.db.profile.wheelZoom then return end
 
 	if delta > 0 then
-		MinimapZoomIn:Click()
+		Minimap_ZoomIn()
 	else
-		MinimapZoomOut:Click()
+		Minimap_ZoomOut()
 	end
 
 	if Zoom.db.profile.autoZoom then
@@ -60,7 +60,7 @@ end
 
 function Zoom:ZoomOut()
 	for _ = 1, 5 do
-		MinimapZoomOut:Click()
+		Minimap_ZoomOut()
 	end
 
 	timerID = nil

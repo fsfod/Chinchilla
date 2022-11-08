@@ -266,19 +266,19 @@ function MoveButtons:OnInitialize()
 		}
 	else
 		buttons = {
-			difficulty = MiniMapInstanceDifficulty,
+			difficulty = MinimapCluster.InstanceDifficulty,
 			guilddifficulty = GuildInstanceDifficulty,
 			challengedifficulty = MiniMapChallengeMode,
 			map = MiniMapWorldMapButton,
 			mail = MiniMapMailFrame,
-			lfg = QueueStatusMinimapButton,
+			lfg = QueueStatusButton,
 			dayNight = GameTimeFrame,
 			clock = TimeManagerClockButton,
 			track = MiniMapTracking,
 			voice = MiniMapVoiceChatFrame,
 			zoomIn = MinimapZoomIn,
 			zoomOut = MinimapZoomOut,
-			garrison = GarrisonLandingPageMinimapButton,
+			garrison = ExpansionLandingPageMinimapButton,
 		}
 	end
 

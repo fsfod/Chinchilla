@@ -231,7 +231,7 @@ function MoveButtons:OnInitialize()
 	self.db = Chinchilla.db:RegisterNamespace("MoveButtons", {
 		profile = {
 			lock = false,
-			radius = 80,
+			radius = 98,
 			enabled = true,
 		},
 	})
@@ -615,8 +615,8 @@ function MoveButtons:GetOptions()
 			desc = L["Set how far away from the center to place buttons on the minimap"],
 			type = 'range',
 			order = 3,
-			min = 60,
-			max = 100,
+			min = 89,
+			max = 140,
 			step = 1,
 			get = function()
 				return self.db.profile.radius

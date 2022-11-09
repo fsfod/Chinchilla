@@ -26,7 +26,7 @@ function Coordinates:OnInitialize()
 			precision = 1,
 			scale = 1,
 			positionX = -30,
-			positionY = -50,
+			positionY = -98,
 			background = { TOOLTIP_DEFAULT_BACKGROUND_COLOR.r, TOOLTIP_DEFAULT_BACKGROUND_COLOR.g, TOOLTIP_DEFAULT_BACKGROUND_COLOR.b, 1 },
 			backgroundTexture = "Blizzard Tooltip",
 			border = { TOOLTIP_DEFAULT_COLOR.r, TOOLTIP_DEFAULT_COLOR.g, TOOLTIP_DEFAULT_COLOR.b, 1 },

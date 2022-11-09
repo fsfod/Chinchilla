@@ -23,7 +23,9 @@ function Appearance:OnInitialize()
 			scale = 1, blipScale = 1, alpha = 1, combatAlpha = 1,
 			borderColor = { 1, 1, 1, 1 }, buttonBorderAlpha = 1,
 			strata = "LOW", shape = "CORNER-BOTTOMLEFT",
-			borderStyle = "Blizzard", borderRadius = 80,
+			borderStyle = "Blizzard",
+			-- MinimapBackdrop changed from 192x192 to 215x226
+			borderRadius = 115,
 		},
 	})
 

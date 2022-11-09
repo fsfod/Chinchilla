@@ -202,14 +202,12 @@ function Chinchilla:OnEnable()
 	self:RegisterChatCommand("chinchilla", "OpenConfig")
 
 	MinimapCluster:EnableMouse(false)
-	MinimapBorderTop:Hide()
-	MinimapZoneTextButton:Hide()
 
 	if self:IsClassic() then
 		MinimapToggleButton:Hide()
 	elseif self:IsRetail() then
-		MiniMapWorldMapButton:SetNormalTexture("Interface\\AddOns\\Chinchilla\\Art\\UI-MiniMap-WorldMapSquare")
-		MiniMapWorldMapButton:SetPushedTexture("Interface\\AddOns\\Chinchilla\\Art\\UI-MiniMap-WorldMapSquare")
+	--	MiniMapWorldMapButton:SetNormalTexture("Interface\\AddOns\\Chinchilla\\Art\\UI-MiniMap-WorldMapSquare")
+	--	MiniMapWorldMapButton:SetPushedTexture("Interface\\AddOns\\Chinchilla\\Art\\UI-MiniMap-WorldMapSquare")
 	end
 
 	self:RawHookScript(Minimap, "OnMouseUp", "Minimap_OnMouseUp")
@@ -217,14 +215,12 @@ end
 
 function Chinchilla:OnDisable()
 	MinimapCluster:EnableMouse(true)
-	MinimapBorderTop:Show()
-	MinimapZoneTextButton:Show()
 
 	if self:IsClassic() then
 		MinimapToggleButton:Show()
 	elseif self:IsRetail() then
-		MiniMapWorldMapButton:SetNormalTexture("Interface\\Minimap\\UI-MiniMap-WorldMapSquare")
-		MiniMapWorldMapButton:SetPushedTexture("Interface\\Minimap\\UI-MiniMap-WorldMapSquare")
+--		MiniMapWorldMapButton:SetNormalTexture("Interface\\Minimap\\UI-MiniMap-WorldMapSquare")
+	--	MiniMapWorldMapButton:SetPushedTexture("Interface\\Minimap\\UI-MiniMap-WorldMapSquare")
 	end
 end
 

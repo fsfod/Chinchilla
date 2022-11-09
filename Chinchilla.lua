@@ -91,7 +91,7 @@ function Chinchilla:CreateConfig()
 				type = 'toggle',
 				order = 2,
 				get = function() return GetCVar("rotateMinimap") == "1" end,
-				set = function() InterfaceOptionsDisplayPanelRotateMinimap:Click() end,
+				set = function(_, value) SetCVar("rotateMinimap", value) end,
 			},
 			mouseButton = {
 				name = L["Preferences button"],

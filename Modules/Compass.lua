@@ -9,7 +9,7 @@ Compass.desc = L["Show direction indicators on the minimap"]
 function Compass:OnInitialize()
 	self.db = Chinchilla.db:RegisterNamespace("Compass", {
 		profile = {
-			radius = 61,
+			radius = 100,
 			color = { 1, 0.82, 0, 1 },
 			fontSize = 12,
 			nonNorthSize = 0.8,
@@ -157,8 +157,8 @@ function Compass:GetOptions()
 			name = L["Radius"],
 			desc = L["The distance from the center of the minimap to show the indicators."],
 			type = 'range',
-			min = 50,
-			max = 100,
+			min = 90,
+			max = 150,
 			step = 1,
 			get = function()
 				return self.db.profile.radius

@@ -75,7 +75,7 @@ function Appearance:OnEnable()
 	if inCombat then self:SetCombatAlpha()
 	else self:SetAlpha() end
 
-	MinimapBorder:Hide()
+	MinimapCompassTexture:Hide()
 
 	for _, v in ipairs(cornerTextures) do
 		v:Show()
@@ -105,7 +105,7 @@ function Appearance:OnDisable()
 	self:SetBorderColor()
 	self:SetButtonBorderAlpha()
 
-	MinimapBorder:Show()
+	MinimapCompassTexture:Show()
 	Minimap:SetAlpha(1)
 
 	if Chinchilla:IsClassic() or Chinchilla:IsWrathClassic() then

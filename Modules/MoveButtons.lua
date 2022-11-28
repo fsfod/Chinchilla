@@ -11,7 +11,7 @@ local buttonStarts = {}
 local buttonReverse = {}
 
 
-local function getOffset(deg)
+local function getOffset(frame, deg)
 	local angle = math.rad(deg)
 	local cos, sin = math.cos(angle), math.sin(angle)
 	local minimapShape = GetMinimapShape and GetMinimapShape() or "ROUND"
@@ -69,7 +69,7 @@ local function getOffset(deg)
 		end
 	end
 
-	local radius = MoveButtons.db.profile.radius
+	local radius = MoveButtons.db.profile.radius/frame:GetScale()
 
 	if round then
 		return radius * cos, radius * sin
@@ -202,7 +202,7 @@ local function button_OnUpdate(this)
 	if type(deg) == "table" then
 		this:SetPoint("CENTER", UIParent, deg[1], deg[2], deg[3])
 	else
-		this:SetPoint("CENTER", Minimap, "CENTER", getOffset(deg))
+		this:SetPoint("CENTER", Minimap, "CENTER", getOffset(this, deg))
 	end
 
 	LibStub("AceConfigRegistry-3.0"):NotifyChange("Chinchilla")
@@ -233,6 +233,7 @@ function MoveButtons:OnInitialize()
 			lock = false,
 			radius = 98,
 			enabled = true,
+			scale = {},
 		},
 	})
 
@@ -316,7 +317,7 @@ function MoveButtons:OnDisable()
 		local deg = buttonStarts[k]
 
 		v:ClearAllPoints()
-		v:SetPoint("CENTER", Minimap, "CENTER", getOffset(deg))
+		v:SetPoint("CENTER", Minimap, "CENTER", getOffset(v, deg))
 		v:SetClampedToScreen(false)
 	end
 end
@@ -334,11 +335,16 @@ function MoveButtons:Update()
 
 		v:ClearAllPoints()
 
+		local scale = MoveButtons.db.profile.scale[k]
+		if scale then
+			v:SetScale(scale)
+		end
+
 		if type(deg) == "table" then
 			v:SetPoint("CENTER", UIParent, deg[1], deg[2], deg[3])
 			v:SetClampedToScreen(true)
 		else
-			v:SetPoint("CENTER", Minimap, "CENTER", getOffset(deg))
+			v:SetPoint("CENTER", Minimap, "CENTER", getOffset(v, deg))
 			v:SetClampedToScreen(false)
 		end
 	end
@@ -361,17 +367,17 @@ local function angle_set(info, value)
 
 	if key == "difficulty" then
 		MiniMapInstanceDifficulty:ClearAllPoints()
-		MiniMapInstanceDifficulty:SetPoint("CENTER", Minimap, "CENTER", getOffset(value))
+		MiniMapInstanceDifficulty:SetPoint("CENTER", Minimap, "CENTER", getOffset(MiniMapInstanceDifficulty, value))
 
 		if Chinchilla:IsRetail() then
 			GuildInstanceDifficulty:ClearAllPoints()
-			GuildInstanceDifficulty:SetPoint("CENTER", Minimap, "CENTER", getOffset(value))
+			GuildInstanceDifficulty:SetPoint("CENTER", Minimap, "CENTER", getOffset(GuildInstanceDifficulty, value))
 			MiniMapChallengeMode:ClearAllPoints()
-			MiniMapChallengeMode:SetPoint("CENTER", Minimap, "CENTER", getOffset(value))
+			MiniMapChallengeMode:SetPoint("CENTER", Minimap, "CENTER", getOffset(MiniMapChallengeMode, value))
 		end
 	else
 		buttons[key]:ClearAllPoints()
-		buttons[key]:SetPoint("CENTER", Minimap, "CENTER", getOffset(value))
+		buttons[key]:SetPoint("CENTER", Minimap, "CENTER", getOffset(buttons[key], value))
 	end
 
 	if key == "lfg" then PositionLFD() end
@@ -395,7 +401,7 @@ local function attach_set(info, value)
 		MoveButtons.db.profile[key] = getAngle(buttons[key]:GetCenter())
 
 		buttons[key]:ClearAllPoints()
-		buttons[key]:SetPoint("CENTER", Minimap, "CENTER", getOffset(MoveButtons.db.profile[key]))
+		buttons[key]:SetPoint("CENTER", Minimap, "CENTER", getOffset(buttons[key], MoveButtons.db.profile[key]))
 	end
 
 	if key == "lfg" then PositionLFD() end
@@ -460,9 +466,9 @@ local function x_set(info, value)
 
 		if Chinchilla:IsRetail() then
 			GuildInstanceDifficulty:ClearAllPoints()
-			GuildInstanceDifficulty:SetPoint("CENTER", Minimap, "CENTER", getOffset(value))
+			GuildInstanceDifficulty:SetPoint("CENTER", Minimap, "CENTER", getOffset(GuildInstanceDifficulty, value))
 			MiniMapChallengeMode:ClearAllPoints()
-			MiniMapChallengeMode:SetPoint("CENTER", Minimap, "CENTER", getOffset(value))
+			MiniMapChallengeMode:SetPoint("CENTER", Minimap, "CENTER", getOffset(MiniMapChallengeMode, value))
 		end
 	else
 		buttons[key]:ClearAllPoints()
@@ -489,9 +495,9 @@ local function y_set(info, value)
 
 		if Chinchilla:IsRetail() then
 			GuildInstanceDifficulty:ClearAllPoints()
-			GuildInstanceDifficulty:SetPoint("CENTER", Minimap, "CENTER", getOffset(value))
+			GuildInstanceDifficulty:SetPoint("CENTER", Minimap, "CENTER", getOffset(GuildInstanceDifficulty, value))
 			MiniMapChallengeMode:ClearAllPoints()
-			MiniMapChallengeMode:SetPoint("CENTER", Minimap, "CENTER", getOffset(value))
+			MiniMapChallengeMode:SetPoint("CENTER", Minimap, "CENTER", getOffset(GuildInstanceDifficulty, value))
 		end
 	else
 		buttons[key]:ClearAllPoints()
@@ -501,6 +507,31 @@ local function y_set(info, value)
 	if key == "lfg" then PositionLFD() end
 end
 
+local function scale_get(info)
+	local key = info[#info - 1]
+	local frame = buttons[key]
+	local scale = MoveButtons.db.profile.scale[key]
+
+	return scale or 1
+end
+
+local function scale_set(info, value)
+	if not MoveButtons:IsEnabled() then
+		return
+	end
+
+	local key = info[#info - 1]
+	local frame = buttons[key]
+	MoveButtons.db.profile.scale[key] = value
+
+	frame:SetScale(value)
+
+	local deg = MoveButtons.db.profile[key] or 0
+
+	if type(deg) ~= "table" then
+		frame:SetPoint("CENTER", Minimap, "CENTER", getOffset(frame, deg))
+	end
+end
 
 function MoveButtons:IsLocked()
 	return self.db.profile.lock
@@ -596,6 +627,18 @@ function MoveButtons:GetOptions()
 			get = y_get,
 			set = y_set,
 			hidden = attach_get,
+		},
+
+		scale = {
+			name = L["Button Scale"],
+			desc = L["Change the scale of the button"],
+			type = 'range',
+			order = 3,
+			min = 0.2,
+			max = 10,
+			step = 0.1,
+			get = scale_get,
+			set = scale_set,
 		},
 	}
 

@@ -271,7 +271,7 @@ function MoveButtons:OnInitialize()
 			guilddifficulty = GuildInstanceDifficulty,
 			challengedifficulty = MiniMapChallengeMode,
 			map = MiniMapWorldMapButton,
-			mail = MiniMapMailFrame,
+			mail = MinimapCluster.MailFrame,
 			lfg = QueueStatusButton,
 			dayNight = GameTimeFrame,
 			clock = TimeManagerClockButton,

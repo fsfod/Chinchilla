@@ -163,7 +163,7 @@ end
 local function PositionLFD()
 	if not Chinchilla:IsRetail() then return end
 
-	local point1, point2 = GetTipAnchor(QueueStatusMinimapButton)
+	local point1, point2 = GetTipAnchor(QueueStatusButton)
 	QueueStatusFrame:ClearAllPoints()
 	QueueStatusFrame:SetPoint(point1, QueueStatusMinimapButton, point2)
 end
@@ -299,7 +299,7 @@ function MoveButtons:OnEnable()
 	self:Update()
 
 	if Chinchilla:IsRetail() and not Chinchilla:IsHooked("QueueStatusFrame_Update") then
-		Chinchilla:SecureHook("QueueStatusFrame_Update", PositionLFD)
+		--Chinchilla:SecureHook(QueueStatusFrameMixin.Update, PositionLFD)
 	end
 
 	if Chinchilla:IsRetail() then

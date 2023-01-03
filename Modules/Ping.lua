@@ -86,7 +86,7 @@ function Ping:OnEnable()
 	self:RegisterEvent("MINIMAP_PING")
 
 --	self:RawHook("Minimap_SetPing", true)
-	self:RawHook("Minimap_OnClick", true)
+--	self:RawHook("Minimap_OnClick", true)
 
 	LSM.RegisterCallback(self, "LibSharedMedia_Registered", "MediaRegistered")
 

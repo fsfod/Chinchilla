@@ -249,9 +249,9 @@ function Appearance:SetScale(value)
 	else
 		ObjectiveTrackerFrame:GetSize()
 	-- Fix Instance Difficulty size --
-		MiniMapInstanceDifficulty:SetScale(value)
-		GuildInstanceDifficulty:SetScale(value)
-		MiniMapChallengeMode:SetScale(value)
+		MinimapCluster.InstanceDifficulty:SetScale(value)
+		--GuildInstanceDifficulty:SetScale(value)
+		--MiniMapChallengeMode:SetScale(value)
 	end
 end
 
@@ -404,8 +404,12 @@ function Appearance:SetBorderStyle(style)
 end
 
 function Appearance:SetBorderRadius(value)
-	if value then self.db.profile.borderRadius = value
-	else return end
+	if value then
+		self.db.profile.borderRadius = value
+		self.db.profile.dragonflightSize = true
+	else
+		return
+	end
 
 	if cornerTextures[1] then
 		for _, v in ipairs(cornerTextures) do

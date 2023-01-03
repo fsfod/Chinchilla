@@ -14,7 +14,16 @@ local frames
 
 function ShowHide:ShowFrame(frame)
 	if _G[frame] then
-		_G[frame]:SetParent( _G[frame].__origParent )
+		if _G[frame].__origParent then
+			local parent = _G[frame].__origParent
+			if type(parent) == "string" then
+				parent = _G[_G[frame].__origParent]
+			end
+			_G[frame]:SetParent(parent)
+		else
+			assert(_G[frame].__origParent == false, _G[frame]:GetName())
+			_G[frame]:SetParent(nil)
+		end
 	end
 end
 
@@ -50,26 +59,27 @@ function ShowHide:OnInitialize()
 		}
 	else
 		frames = {
-			boss = "Chinchilla_BossAnchor",
-			difficulty = "MiniMapInstanceDifficulty",
-			guilddifficulty = "GuildInstanceDifficulty",
-			north = "MinimapNorthTag",
-			map = "MiniMapWorldMapButton",
-			mail = "MiniMapMailFrame",
-			lfg = "QueueStatusMinimapButton",
-			dayNight = "GameTimeFrame",
-			track = "MiniMapTracking",
-			zoomIn = "MinimapZoomIn",
-			zoomOut = "MinimapZoomOut",
-			vehicleSeats = "VehicleSeatIndicator",
-			clock = "TimeManagerClockButton",
-			garrison = "GarrisonLandingPageMinimapButton",
+			-- boss = "Chinchilla_BossAnchor",
+			-- difficulty = "MiniMapInstanceDifficulty",
+			-- guilddifficulty = "GuildInstanceDifficulty",
+			-- north = "MinimapNorthTag",
+			-- map = "MiniMapWorldMapButton",
+			-- mail = "MinimapCluster.MailFrame",
+			 lfg = "QueueStatusButton",
+			-- dayNight = "GameTimeFrame",
+			-- track = "MiniMapTracking",
+			-- zoomIn = "MinimapZoomIn",
+			-- zoomOut = "MinimapZoomOut",
+			-- vehicleSeats = "VehicleSeatIndicator",
+			-- clock = "TimeManagerClockButton",
+			-- garrison = "GarrisonLandingPageMinimapButton",
 		}
 	end
 
 	for _, frame in pairs(frames) do
-		if _G[frame] then
-			_G[frame].__origParent = _G[frame]:GetParent():GetName()
+		if _G[frame] and _G[frame]:GetParent() then
+			local parent = _G[frame]:GetParent()
+			_G[frame].__origParent = parent:GetName() or parent
 		else
 			Chinchilla:Print(frame, "has changed or no longer exists. Please notify the addon author.")
 		end

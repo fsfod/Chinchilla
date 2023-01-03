@@ -251,19 +251,19 @@ function Position:SetLocked(value)
 
 	if value then
 		Minimap:RegisterForDrag()
-		MinimapZoneTextButton:RegisterForDrag()
+		MinimapCluster.ZoneTextButton:RegisterForDrag()
 		Minimap:SetScript("OnDragStart", nil)
 		Minimap:SetScript("OnDragStop", nil)
-		MinimapZoneTextButton:SetScript("OnDragStart", nil)
-		MinimapZoneTextButton:SetScript("OnDragStop", nil)
+		MinimapCluster.ZoneTextButton:SetScript("OnDragStart", nil)
+		MinimapCluster.ZoneTextButton:SetScript("OnDragStop", nil)
 		Minimap:SetMovable(false)
 	else
 		Minimap:RegisterForDrag("LeftButton")
-		MinimapZoneTextButton:RegisterForDrag("LeftButton")
+		MinimapCluster.ZoneTextButton:RegisterForDrag("LeftButton")
 		Minimap:SetScript("OnDragStart", Minimap_OnDragStart)
 		Minimap:SetScript("OnDragStop", Minimap_OnDragStop)
-		MinimapZoneTextButton:SetScript("OnDragStart", Minimap_OnDragStart)
-		MinimapZoneTextButton:SetScript("OnDragStop", Minimap_OnDragStop)
+		MinimapCluster.ZoneTextButton:SetScript("OnDragStart", Minimap_OnDragStart)
+		MinimapCluster.ZoneTextButton:SetScript("OnDragStop", Minimap_OnDragStop)
 		Minimap:SetMovable(true)
 	end
 end
